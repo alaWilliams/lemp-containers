@@ -1,0 +1,29 @@
+
+<h1>Frontend (Nginx)</h1>
+<div id="msg">Loading...</div>
+
+
+<button id="getTimeBtn">Get Server Time</button>
+<div id="timeDiv"></div>
+
+<script>
+    fetch('/api')
+        .then(r => r.json())
+        .then(d => {
+            document.getElementById('msg').innerText = d.message;
+        })
+        .catch(e => {
+            document.getElementById('msg').innerText = 'API error: ' + e;
+        });
+
+    document.getElementById('getTimeBtn').addEventListener('click', () => {
+        fetch('/api/time')
+            .then(r => r.json())
+            .then(d => {
+                document.getElementById('timeDiv').innerText = 'Server time: ' + d.time;
+            })
+            .catch(e => {
+                document.getElementById('timeDiv').innerText = 'Time API error: ' + e;
+            });
+    });
+</script>
